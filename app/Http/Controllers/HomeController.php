@@ -76,7 +76,7 @@ class HomeController extends Controller
         $rincian = Rincian::get();
 
         $last = Plan::latest()->first();
-        @$data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
+        @$data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
         $month = Month::get();
 
         // dd($month);
@@ -113,8 +113,8 @@ class HomeController extends Controller
         $month = Month::get();
 
         $last = PerencanaanSatker::latest()->first();
-        @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
-        // $data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->get();
+        @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
+        // $data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->get();
         // dd($data->toArray());
 
         // dd($month);
@@ -149,7 +149,7 @@ class HomeController extends Controller
         // $coba = Plan::where('plans.parent_id', 0)->with('children.children.children.children.children.children')->where('tanggal_revisi', $last->tanggal_revisi)->join('realisasis', 'realisasis.plan_id', '=', 'plans.id')->get();
         // dd($coba);
         $last = Carbon::now()->isoFormat('MMMM');
-        @$data = Realisasi::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->where('bulan', $last )->get();
+        @$data = Realisasi::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('bulan', $last )->get();
 
 
 
@@ -179,7 +179,7 @@ class HomeController extends Controller
         $month = Month::get();
         $cekbul = $request->bulan;
 
-        $data = RealisasiSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->get();
+        $data = RealisasiSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->get();
 
         return view('guest.realisasisatker', [
             'data' => $data,
@@ -209,12 +209,12 @@ class HomeController extends Controller
         $month = Month::get();
 
         if(empty($request->tanggal_revisi)){
-            $data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->get();
+            $data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->get();
         } else {
             $data = Plan::
             where('parent_id', 0)
             ->with('children.children.children.children.children.children')
-            ->orderBy('uraian','asc')
+            ->orderBy('menu_id','asc')
             ->where('tanggal_revisi', $request->tanggal_revisi)
             ->get();
         }
@@ -252,12 +252,12 @@ class HomeController extends Controller
         $month = Month::get();
 
         if(empty($request->bulan)){
-            $data = Realisasi::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->get();
+            $data = Realisasi::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->get();
         } else {
             $data = Realisasi::
             where('parent_id', 0)
             ->with('children.children.children.children.children.children')
-            ->orderBy('uraian','asc')
+            ->orderBy('menu_id','asc')
             ->where('bulan', $request->bulan)
             ->get();
         }
@@ -296,12 +296,12 @@ class HomeController extends Controller
         $month = Month::get();
 
         if(empty($request->bulan)){
-            $data = RealisasiSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->get();
+            $data = RealisasiSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->get();
         } else {
             $data = RealisasiSatker::
             where('parent_id', 0)
             ->with('children.children.children.children.children.children')
-            ->orderBy('uraian','asc')
+            ->orderBy('menu_id','asc')
             ->where('bulan', $request->bulan)
             ->get();
         }
@@ -339,16 +339,16 @@ class HomeController extends Controller
         $month = Month::get();
 
         $last = PerencanaanSatker::latest()->first();
-        @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
+        @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
         
         
         if(empty($request->tanggal_revisi)){
-            $data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->get();
+            $data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->get();
         } else {
             $data = PerencanaanSatker::
             where('parent_id', 0)
             ->with('children.children.children.children.children.children')
-            ->orderBy('uraian','asc')
+            ->orderBy('menu_id','asc')
             ->where('tanggal_revisi', $request->tanggal_revisi)
             ->get();
         }
@@ -368,12 +368,12 @@ class HomeController extends Controller
         $month = Month::get();
 
         if(empty($request->tanggal_revisi)){
-            $data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->get();
+            $data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->get();
         } else {
             $data = Plan::
             where('parent_id', 0)
             ->with('children.children.children.children.children.children')
-            ->orderBy('uraian','asc')
+            ->orderBy('menu_id','asc')
             ->where('tanggal_revisi', $request->tanggal_revisi)
             ->get();
         }
@@ -403,10 +403,10 @@ class HomeController extends Controller
         $last = Plan::latest()->first();
 
         if(empty($request->tanggal_revisi)) {
-            @$data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
+            @$data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
             $month = Month::get();
         }else {
-            @$data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->where('tanggal_revisi', $request->tanggal_revisi)->get();        // dd($data->toArray());
+            @$data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $request->tanggal_revisi)->get();        // dd($data->toArray());
             $month = Month::get();
         }
         // dd($data);
@@ -438,10 +438,10 @@ class HomeController extends Controller
         $last = PerencanaanSatker::latest()->first();
 
         if(empty($request->tanggal_revisi)) {
-            @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
+            @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
             $month = Month::get();
         }else {
-            @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->where('tanggal_revisi', $request->tanggal_revisi)->get();        // dd($data->toArray());
+            @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $request->tanggal_revisi)->get();        // dd($data->toArray());
             $month = Month::get();
         }
         // dd($data);

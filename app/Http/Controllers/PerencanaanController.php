@@ -34,9 +34,9 @@ class PerencanaanController extends Controller
 
         $last = Plan::latest()->first();
         // dd($last->tanggal_revisi);
-        @$data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();
+        @$data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();
 
-        @$tgl_simpan = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->first();
+        @$tgl_simpan = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->first();
         // dd($tgl_simpan);
         // dd($data);
         // dd($menusatu);
@@ -93,7 +93,7 @@ class PerencanaanController extends Controller
         //         'tanggal_revisi' => $request->tanggal_revisi,
         //         'tanggal_input' => $request->tanggal_input,
         //         'kode' => $splitMenu1[0],
-        //         'uraian' => $splitMenu1[1],
+        //         'menu_id' => $splitMenu1[1],
         //         'created_at' => $request->tanggal_revisi,
         //     ],
         //     [
@@ -101,8 +101,8 @@ class PerencanaanController extends Controller
         //         'tanggal_revisi' => $request->tanggal_revisi,
         //         'tanggal_input' => $request->tanggal_input,
         //         'kode' => $splitMenu2[0],
-        //         'uraian' => $splitMenu2[1],
-        //         'uraian' => $splitMenu2[1],
+        //         'menu_id' => $splitMenu2[1],
+        //         'menu_id' => $splitMenu2[1],
         //         'created_at' => $request->tanggal_revisi,
         //     ],
         // ]);
@@ -260,7 +260,7 @@ class PerencanaanController extends Controller
     public function modalRincian(Request $request, $id)
     {
         // $splitCat = explode('-', $request->sub_kegiatan_id);
-        $menu = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->get();
+        $menu = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->get();
         // $a = [];
 
         $rinc = Plan::where('id', $id)->first();
@@ -497,8 +497,8 @@ class PerencanaanController extends Controller
         $revtot = Plan::where('id', $rev->parent_id)->first();
         //    dd($revtot);
         $last = Plan::latest()->first();
-        // $data = Plan::where('parent_id',0)->with('children')->orderBy('uraian','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();
-        $data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();
+        // $data = Plan::where('parent_id',0)->with('children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();
+        $data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();
         if($request->tanggal_revisi != $last->tanggal_revisi) {
         foreach($data as $key){
             $a = $key->replicate();
@@ -709,7 +709,7 @@ class PerencanaanController extends Controller
 
     public function simpanrencana ()
     {
-        $data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->get();
+        $data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->get();
         // dd(collect($data));
 
         $simpan = DB::table('plans')->update(array('status' => 1));
