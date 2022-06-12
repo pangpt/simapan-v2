@@ -28,14 +28,15 @@ class PerencanaanSatkerController extends Controller
         $detilsatker = DetilSatker::get();
         $uraiansatker = UraianSatker::get();
         $month = Month::get();
-
-
+        $tanggal = PerencanaanSatker::where('parent_id', 0)->where('program_satker_id', 1)->get();
+        $last = PerencanaanSatker::latest()->first();
+        $cektgl = $request->tanggal_revisi;
 
         $last = PerencanaanSatker::latest()->first();
         // dd($last->tanggal_revisi);
-        @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();
+        @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('program_satker_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();
 
-        @$tgl_simpan = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->first();
+        @$tgl_simpan = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('program_satker_id','asc')->first();
 
         return view('satker.perencanaan.index',[
             'data' => $data,
@@ -47,7 +48,10 @@ class PerencanaanSatkerController extends Controller
             'detilsatker' => $detilsatker,
             'uraiansatker' => $uraiansatker,
             'month' => $month,
+            'tanggal' => $tanggal,
+            'cektgl' => $cektgl,
             'tgl_simpan' => $tgl_simpan,
+            'last' => $last,
         ]);
     }
 
@@ -608,9 +612,42 @@ class PerencanaanSatkerController extends Controller
 
         $simpan = DB::table('perencanaan_satker')->update(array('status' => 1));
 
-        return redirect()->back();
-        
-        
+        return redirect()->back();   
+    }
 
+    public function filterperencanasatker(Request $request)
+    {
+        $programsatker = ProgramSatker::get();  
+        $kegiatansatker = KegiatanSatker::get();
+        $subkegiatansatker = SubKegiatanSatker::get();
+        $menusatker = MenuSatker::get();
+        $rinciansatker = RincianSatker::get();
+        $detilsatker = DetilSatker::get();
+        $uraiansatker = UraianSatker::get();
+        $month = Month::get();
+        $tanggal = PerencanaanSatker::where('parent_id', 0)->where('program_satker_id', 1)->get();
+        $last = PerencanaanSatker::latest()->first();
+        $cektgl = $request->tanggal_revisi;
+
+        if(empty($request->tanggal_revisi)){
+            @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('program_satker_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();
+        } else {
+            @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('program_satker_id','asc')->where('tanggal_revisi', $request->tanggal_revisi)->get();
+        }
+
+        return view('satker.perencanaan.index',[
+            'data' => $data,
+            'programsatker' => $programsatker,
+            'kegiatansatker' => $kegiatansatker,
+            'subkegiatansatker' => $subkegiatansatker,
+            'menusatker' => $menusatker,
+            'rinciansatker' => $rinciansatker,
+            'detilsatker' => $detilsatker,
+            'uraiansatker' => $uraiansatker,
+            'month' => $month,
+            'tanggal' => $tanggal,
+            'last' => $last,
+            'cektgl' => $cektgl,
+        ]);
     }
 }

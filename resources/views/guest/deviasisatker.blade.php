@@ -54,7 +54,7 @@
         </div>
         
       <div class="card img-fluid">
-        <img class="card-img-top" src="../dist/img/jangka-panjang.png" alt="Card image" style="width:100%">
+        <img class="card-img-top" src="{{asset('dist/img/jangka-panjang.png')}}" alt="Card image" style="width:100%">
         <div class="card-img-overlay">
         </div>
       </div>

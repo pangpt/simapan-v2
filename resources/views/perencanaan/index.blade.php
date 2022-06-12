@@ -16,12 +16,12 @@
             <a href="{{route('perencanaan.create')}}"> <button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Input Perencanaan</button></a>
           </ol>
         </div><!-- /.col -->
-        @if($data->count())
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <a class="btn-simpan" href="#" data-toggle="modal" data-target="#modal-simpan"> <button type="button" class="btn btn-danger btn-block"><i class="fa fa-plus"></i> Revisi</button></a>
-          </ol>
-        </div><!-- /.col -->
+        <!--@if($data->count())-->
+        <!--<div class="col-sm-6">-->
+        <!--  <ol class="breadcrumb float-sm-right">-->
+        <!--    <a class="btn-simpan" href="#" data-toggle="modal" data-target="#modal-simpan"> <button type="button" class="btn btn-danger btn-block"><i class="fa fa-plus"></i> Revisi</button></a>-->
+        <!--  </ol>-->
+        <!--</div><!-- /.col -->-->
         @endif
       </div>
     </div><!-- /.container-fluid -->
@@ -36,6 +36,29 @@
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
+                <div class="row">
+                    <div class="col-3">
+                        <form action="{{route('filterperencana')}}" method="get">
+                            <!-- @csrf -->
+                            <div class="form-group">
+                            <select class="form-control select2" style="width:100%" name="tanggal_revisi">
+                                  <option value="">- Pilih Tanggal -</option>
+                                  @foreach($tanggal as $mo)
+                                        <option value="{{$mo->tanggal_revisi}}">{{$mo->tanggal_revisi}}</option>
+                                    @endforeach
+                              </select>
+                            </div>
+                            </div>
+                            <div class="col-2">
+                                <button type="submit" class="btn btn-primary btn-md">Filter</button>
+                            </div>
+                        </form>
+                    </div>
+                    @if($cektgl == null)
+                      Perencanaan tanggal : <strong>{{$last->tanggal_revisi}}</strong>
+                      @else
+                      Perencanaan tanggal : <strong>{{$cektgl}}</strong>
+                      @endif
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
@@ -89,9 +112,9 @@
                         @if($child->children->count())
                         @foreach($child->children as $gchild)
                             <tr style="background-color: rgb(139, 221, 107)">
-                                <td>{{$gchild->category->kode_kategori}}</td>
+                                <td>{{@$gchild->category->kode_kategori}}</td>
                                 <td>
-                                    <a class="btn-gchild" href="#" data-toggle="modal" data-target="#modal-subcat" data-id="{{$gchild->id}}" data-name="">{{$gchild->category->nama_kategori}}</a>
+                                    <a class="btn-gchild" href="#" data-toggle="modal" data-target="#modal-subcat" data-id="{{$gchild->id}}" data-name="">{{@$gchild->category->nama_kategori}}</a>
                                 </td>
                                 <td>{{number_format(@$gchild->pagu_total,0,",",".")}}</td>
                                 <!-- <td>{{number_format(@$gchild->sisa_pagu,0,",",".")}}</td> -->
@@ -111,9 +134,9 @@
                             {{-- {{dd($gchild->children)}} --}}
                             @foreach($gchild->children as $ggchild)
                                 <tr style="background-color: rgb(255, 106, 106)">
-                                    <td>{{$ggchild->subcat->kode_subcat}}</td>
+                                    <td>{{@$ggchild->subcat->kode_subcat}}</td>
                                     <td>
-                                        <a class="btn-ggchild" href="#" data-toggle="modal" data-target="#modal-kegiatan" data-id="{{$ggchild->id}}">{{$ggchild->subcat->nama_subcat}}</a>
+                                        <a class="btn-ggchild" href="#" data-toggle="modal" data-target="#modal-kegiatan" data-id="{{$ggchild->id}}">{{@$ggchild->subcat->nama_subcat}}</a>
                                     </td>
                                     <td>{{number_format(@$ggchild->pagu_total,0,",",".")}}</td>
                                     <!-- <td>{{number_format(@$ggchild->sisa_pagu,0,",",".")}}</td> -->
@@ -132,9 +155,9 @@
                                 @if($ggchild->children->count())
                                 @foreach($ggchild->children as $zchild)
                                     <tr style="background-color: rgb(224, 224, 143)">
-                                        <td>{{$zchild->kegiatan->kode_kegiatan}}</td>
+                                        <td>{{@$zchild->kegiatan->kode_kegiatan}}</td>
                                         <td>
-                                            <a class="btn-zchild" href="#" data-toggle="modal" data-target="#modal-sub_kegiatan" data-id="{{$zchild->id}}" data-name="">{{$zchild->kegiatan->nama_kegiatan}}</a>
+                                            <a class="btn-zchild" href="#" data-toggle="modal" data-target="#modal-sub_kegiatan" data-id="{{$zchild->id}}" data-name="">{{@$zchild->kegiatan->nama_kegiatan}}</a>
                                         </td>
                                         <td>{{number_format(@$zchild->pagu_total, 0,",",".")}}</td>
                                         <!-- <td>{{number_format(@$zchild->sisa_pagu, 0,",",".")}}</td> -->
@@ -153,9 +176,9 @@
                                     @if($zchild->children->count())
                                     @foreach($zchild->children as $zzchild)
                                     <tr>
-                                        <td>{{$zzchild->sub_kegiatan->kode_sub_kegiatan}}</td>
+                                        <td>{{@$zzchild->sub_kegiatan->kode_sub_kegiatan}}</td>
                                         <td>
-                                            <a class="btn-zzchild" href="#" data-toggle="modal" data-target="#modal-rincian" data-id="{{$zzchild->id}}" data-name="">{{$zzchild->sub_kegiatan->nama_sub_kegiatan}}</a>
+                                            <a class="btn-zzchild" href="#" data-toggle="modal" data-target="#modal-rincian" data-id="{{$zzchild->id}}" data-name="">{{@$zzchild->sub_kegiatan->nama_sub_kegiatan}}</a>
                                         </td>
                                         <td>{{number_format(@$zzchild->pagu_total, 0,",",".")}}</td>
                                         <!-- <td>{{number_format(@$zzchild->sisa_pagu, 0,",",".")}}</td> -->
@@ -174,22 +197,22 @@
                                         @if($zzchild->children->count())
                                         @foreach($zzchild->children as $achild)
                                         <tr>
-                                            <td>{{$achild->kode}}</td>
-                                            <td>{{$achild->rincian->nama_rincian}}
+                                            <td>{{@$achild->kode}}</td>
+                                            <td>{{@$achild->rincian->nama_rincian}}
                                             </td>
-                                            <td>{{number_format($achild->pagu_total, 0,",",".")}}</td>
+                                            <td>{{number_format(@$achild->pagu_total, 0,",",".")}}</td>
                                             <!-- <td>{{number_format($achild->sisa_pagu, 0,",",".")}}</td> -->
                                             <td>
                                                 <a class="btn btn-primary btn-sm btn-renc" href="#" data-toggle="modal" data-target="#modal-renc"data-id="{{$achild->id}}" data-uraian="{{$achild->rincian->nama_rincian}}" data-pagu="{{$achild->pagu_total}}" data-sisa="{{$achild->sisa_pagu}}"
                                                     data-jan="{{$achild->pagu_jan}}" data-feb="{{$achild->pagu_feb}}" data-mar="{{$achild->pagu_mar}}" data-apr="{{$achild->pagu_apr}}" data-mei="{{$achild->pagu_mei}}" data-jun="{{$achild->pagu_jun}}" data-jul="{{$achild->pagu_jul}}" data-agt="{{$achild->pagu_agt}}" data-sep="{{$achild->pagu_sep}}" data-okt="{{$achild->pagu_okt}}" data-nov="{{$achild->pagu_nov}}" data-des="{{$achild->pagu_des}}">
                                                     Renc Penarikan
                                                 </a>
-                                                @if($achild->status == 1)
+
                                                 <a class="btn btn-outline-primary btn-sm btn-rev" href="#" data-toggle="modal" data-target="#modal-rev" data-parent="{{$achild->parent_id}}" data-tglrev="{{$achild->tanggal_revisi}}" data-id="{{$achild->id}}" data-uraian="{{$achild->rincian->nama_rincian}}" data-pagu="{{$achild->pagu_total}}" data-sisa="{{$achild->sisa_pagu}}"
                                                     data-jan="{{$achild->pagu_jan}}" data-feb="{{$achild->pagu_feb}}" data-mar="{{$achild->pagu_mar}}" data-apr="{{$achild->pagu_apr}}" data-mei="{{$achild->pagu_mei}}" data-jun="{{$achild->pagu_jun}}" data-jul="{{$achild->pagu_jul}}" data-agt="{{$achild->pagu_agt}}" data-sep="{{$achild->pagu_sep}}" data-okt="{{$achild->pagu_okt}}" data-nov="{{$achild->pagu_nov}}" data-des="{{$achild->pagu_des}}">
                                                     Revisi
                                                 </a>
-                                                @endif
+
                                                 <a class="btn btn-danger btn-sm btn-hapus"  type="submit" href="{{route('hapusdata',['id' => $achild->id])}}">
                                                     <i class="fas fa-trash">
                                                     </i>
@@ -238,9 +261,9 @@
                             <div class="col-sm-12">
                             <!-- text input -->
                             <div class="form-group">
-                                <label>Jenis Kegiatan</label>
+                                <label>Jenis KRO</label>
                                 <select class="form-control select2" style="width: 100%;" name="submenu_id">
-                                    <option value="">- Pilih Kegiatan -</option>
+                                    <option value="">- Pilih KRO -</option>
                                     @foreach($submenu as $submenuid)
                                         <option value="{{$submenuid->id}}">{{$submenuid->kode_submenu}} - {{$submenuid->nama_submenu}}</option>
                                     @endforeach
@@ -328,9 +351,9 @@
                         <div class="col-sm-12">
                           <!-- text input -->
                           <div class="form-group">
-                            <label>Pilih KRO</label>
+                            <label>Pilih RO</label>
                             <select class="form-control select2" style="width: 100%;" name="category_id">
-                                <option value="">- Pilih KRO -</option>
+                                <option value="">- Pilih RO -</option>
                                 @foreach($category as $categoryid)
                                     <option value="{{$categoryid->id}}">{{$categoryid->kode_kategori}} - {{$categoryid->nama_kategori}}</option>
                                 @endforeach
@@ -607,12 +630,12 @@
             url = $(this).data('url');
             // $('#hapus').attr('href', url);
         })
-        $('.btn-total').on('click', function() {
-            id = $(this).data('id');
-            url = $(this).data('url');
-            // $('#hapus').attr('href', url);
-            // console.log(id);
-        })
+        // $('.btn-total').on('click', function() {
+        //     id = $(this).data('id');
+        //     url = $(this).data('url');
+        //     // $('#hapus').attr('href', url);
+        //     // console.log(id);
+        // })
 
         $('.btn-simpan').on('click', function() {
             id = $(this).data('id');

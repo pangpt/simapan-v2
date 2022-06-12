@@ -16,13 +16,13 @@
             <a href="{{route('perencanaansatker.create')}}"> <button type="button" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Input Perencanaan</button></a>
           </ol>
         </div><!-- /.col -->
-        @if($data->count())
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <a class="btn-simpan" href="#" data-toggle="modal" data-target="#simpan-satker"> <button type="button" class="btn btn-danger btn-block"><i class="fa fa-plus"></i> Simpan</button></a>
-          </ol>
-        </div><!-- /.col -->
-        @endif
+        <!--@if($data->count())-->
+        <!--<div class="col-sm-6">-->
+        <!--  <ol class="breadcrumb float-sm-right">-->
+        <!--    <a class="btn-simpan" href="#" data-toggle="modal" data-target="#simpan-satker"> <button type="button" class="btn btn-danger btn-block"><i class="fa fa-plus"></i> Simpan</button></a>-->
+        <!--  </ol>-->
+        <!--</div><!-- /.col -->-->
+        <!--@endif-->
       </div>
     </div><!-- /.container-fluid -->
   </div>
@@ -36,6 +36,29 @@
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
+                  <div class="row">
+                    <div class="col-3">
+                        <form action="{{route('filterperencanasatker')}}" method="get">
+                            <!-- @csrf -->
+                            <div class="form-group">
+                            <select class="form-control select2" style="width:100%" name="tanggal_revisi">
+                                  <option value="">- Pilih Tanggal -</option>
+                                  @foreach($tanggal as $mo)
+                                        <option value="{{$mo->tanggal_revisi}}">{{$mo->tanggal_revisi}}</option>
+                                    @endforeach
+                              </select>
+                            </div>
+                            </div>
+                            <div class="col-2">
+                                <button type="submit" class="btn btn-primary btn-md">Filter</button>
+                            </div>
+                        </form>
+                    </div>
+                    @if($cektgl == null)
+                      Perencanaan tanggal : <strong>{{$last->tanggal_revisi}}</strong>
+                      @else
+                      Perencanaan tanggal : <strong>{{$cektgl}}</strong>
+                      @endif
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
@@ -89,9 +112,9 @@
                         @if($child->children->count())
                         @foreach($child->children as $gchild)
                             <tr style="background-color: rgb(139, 221, 107)">
-                                <td>{{$gchild->sub_kegiatan_satker->kode_subkegiatan}}</td>
+                                <td>{{@$gchild->sub_kegiatan_satker->kode_subkegiatan}}</td>
                                 <td>
-                                    <a class="btn-gchild" href="#" data-toggle="modal" data-target="#modal-menu" data-id="{{$gchild->id}}" data-name="">{{$gchild->sub_kegiatan_satker->nama_subkegiatan}}</a>
+                                    <a class="btn-gchild" href="#" data-toggle="modal" data-target="#modal-menu" data-id="{{$gchild->id}}" data-name="">{{@$gchild->sub_kegiatan_satker->nama_subkegiatan}}</a>
                                 </td>
                                 <td>{{number_format(@$gchild->pagu_total,0,",",".")}}</td>
                                 <!-- <td>{{number_format(@$gchild->sisa_pagu,0,",",".")}}</td> -->
@@ -131,9 +154,9 @@
                                 @if($ggchild->children->count())
                                 @foreach($ggchild->children as $zchild)
                                     <tr style="background-color: rgb(224, 224, 143)">
-                                        <td>{{$zchild->rincian_satker->kode_rincian}}</td>
+                                        <td>{{@$zchild->rincian_satker->kode_rincian}}</td>
                                         <td>
-                                            <a class="btn-zchild" href="#" data-toggle="modal" data-target="#modal-detil" data-id="{{$zchild->id}}" data-name="">{{$zchild->rincian_satker->nama_rincian}}</a>
+                                            <a class="btn-zchild" href="#" data-toggle="modal" data-target="#modal-detil" data-id="{{$zchild->id}}" data-name="">{{@$zchild->rincian_satker->nama_rincian}}</a>
                                         </td>
                                         <td>{{number_format(@$zchild->pagu_total, 0,",",".")}}</td>
                                         <!-- <td>{{number_format(@$zchild->sisa_pagu, 0,",",".")}}</td> -->
@@ -152,9 +175,9 @@
                                     @if($zchild->children->count())
                                     @foreach($zchild->children as $zzchild)
                                     <tr>
-                                        <td>{{$zzchild->detil_satker->kode_detil}}</td>
+                                        <td>{{@$zzchild->detil_satker->kode_detil}}</td>
                                         <td>
-                                            <a class="btn-zzchild" href="#" data-toggle="modal" data-target="#modal-uraian" data-id="{{$zzchild->id}}" data-name="">{{$zzchild->detil_satker->nama_detil}}</a>
+                                            <a class="btn-zzchild" href="#" data-toggle="modal" data-target="#modal-uraian" data-id="{{$zzchild->id}}" data-name="">{{@$zzchild->detil_satker->nama_detil}}</a>
                                         </td>
                                         <td>{{number_format(@$zzchild->pagu_total, 0,",",".")}}</td>
                                         <!-- <td>{{number_format(@$zzchild->sisa_pagu, 0,",",".")}}</td> -->
@@ -173,8 +196,8 @@
                                         @if($zzchild->children->count())
                                         @foreach($zzchild->children as $achild)
                                         <tr>
-                                            <td>{{$achild->uraian_satker->kode_uraian}}</td>
-                                            <td>{{$achild->uraian_satker->nama_uraian}}
+                                            <td>{{@$achild->uraian_satker->kode_uraian}}</td>
+                                            <td>{{@$achild->uraian_satker->nama_uraian}}
                                             </td>
                                             <td>{{number_format($achild->pagu_total, 0,",",".")}}</td>
                                             <!-- <td>{{number_format($achild->sisa_pagu, 0,",",".")}}</td> -->
@@ -183,12 +206,12 @@
                                                     data-jan="{{$achild->pagu_jan}}" data-feb="{{$achild->pagu_feb}}" data-mar="{{$achild->pagu_mar}}" data-apr="{{$achild->pagu_apr}}" data-mei="{{$achild->pagu_mei}}" data-jun="{{$achild->pagu_jun}}" data-jul="{{$achild->pagu_jul}}" data-agt="{{$achild->pagu_agt}}" data-sep="{{$achild->pagu_sep}}" data-okt="{{$achild->pagu_okt}}" data-nov="{{$achild->pagu_nov}}" data-des="{{$achild->pagu_des}}">
                                                     Renc Penarikan
                                                 </a>
-                                                 @if($achild->status == 1)
+                                                 <!--@if($achild->status == 1)-->
                                                 <a class="btn btn-outline-primary btn-sm btn-rev" href="#" data-toggle="modal" data-target="#modal-rev" data-parent="{{$achild->parent_id}}" data-tglrev="{{$achild->tanggal_revisi}}" data-id="{{$achild->id}}" data-pagu="{{$achild->pagu_total}}" data-sisa="{{$achild->sisa_pagu}}"
                                                     data-jan="{{$achild->pagu_jan}}" data-feb="{{$achild->pagu_feb}}" data-mar="{{$achild->pagu_mar}}" data-apr="{{$achild->pagu_apr}}" data-mei="{{$achild->pagu_mei}}" data-jun="{{$achild->pagu_jun}}" data-jul="{{$achild->pagu_jul}}" data-agt="{{$achild->pagu_agt}}" data-sep="{{$achild->pagu_sep}}" data-okt="{{$achild->pagu_okt}}" data-nov="{{$achild->pagu_nov}}" data-des="{{$achild->pagu_des}}">
                                                     Revisi
                                                 </a>
-                                                @endif
+                                                <!--@endif-->
                                                 <a class="btn btn-danger btn-sm btn-hapus"  type="submit" href="{{route('hapussatker',['id' => $achild->id])}}">
                                                     <i class="fas fa-trash">
                                                     </i>

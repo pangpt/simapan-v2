@@ -30,6 +30,7 @@ class PerencanaanController extends Controller
         $sub_kegiatan = Sub_kegiatan::get();
         $rincian = Rincian::get();
         $month = Month::get();
+        $tanggal = Plan::where('parent_id', 0)->where('menu_id', 1)->get();
 
 
         $last = Plan::latest()->first();
@@ -37,14 +38,8 @@ class PerencanaanController extends Controller
         @$data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();
 
         @$tgl_simpan = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->first();
-        // dd($tgl_simpan);
-        // dd($data);
-        // dd($menusatu);
+        $cektgl =  $last->tanggal_revisi;
 
-        // $total = array_sum($a);
-        // dd($total);
-
-        // dd($data);
         return view('perencanaan.index',[
             'data' => $data,
             'submenu' => $submenu,
@@ -55,6 +50,10 @@ class PerencanaanController extends Controller
             'rincian' => $rincian,
             'month' => $month,
             'tgl_simpan' => $tgl_simpan,
+            'tanggal' => $tanggal,
+            'cektgl' => $cektgl,
+            'last' => $last,
+            
         ]);
     }
 
@@ -273,12 +272,12 @@ class PerencanaanController extends Controller
         $data->rincian_id =$request->rincian_id;
         $data->parent_id = $id;
         $data->pagu_total = $request->pagu_total;
-        $data->sisa_pagu = $request->pagu_total;
+        // $data->sisa_pagu = $request->pagu_total;
         $data->cek_sub_id = 7;
         $data->save();
 
         $rinc->pagu_total += $request->pagu_total;
-        $rinc->sisa_pagu += $request->pagu_total;
+        // $rinc->sisa_pagu += $request->pagu_total;
         $rinc->update();
 
         $upper = Plan::where('id', $rinc->parent_id)->first();
@@ -288,23 +287,23 @@ class PerencanaanController extends Controller
         $higher = Plan::where('id', $high->parent_id)->first();
         // dd($upper);
         $upper->pagu_total += $request->pagu_total;
-        $upper->sisa_pagu += $request->pagu_total;
+        // $upper->sisa_pagu += $request->pagu_total;
         $upper->update();
 
         $up->pagu_total += $request->pagu_total;
-        $up->sisa_pagu += $request->pagu_total;
+        // $up->sisa_pagu += $request->pagu_total;
         $up->update();
 
         $top->pagu_total += $request->pagu_total;
-        $top->sisa_pagu += $request->pagu_total;
+        // $top->sisa_pagu += $request->pagu_total;
         $top->update();
 
         $high->pagu_total += $request->pagu_total;
-        $high->sisa_pagu += $request->pagu_total;
+        // $high->sisa_pagu += $request->pagu_total;
         $high->update();
 
         $higher->pagu_total += $request->pagu_total;
-        $higher->sisa_pagu += $request->pagu_total;
+        // $higher->sisa_pagu += $request->pagu_total;
         $higher->update();
 
 
@@ -434,28 +433,28 @@ class PerencanaanController extends Controller
         $best->update();
 
         // dd($data);
-        $tot = Plan::where('parent_id', $request->parent_id)->get();
-        $b[] = 0;
-        foreach($tot as $key){
-            $b[] = $key->sisa_pagu;
-        }
+        // $tot = Plan::where('parent_id', $request->parent_id)->get();
+        // $b[] = 0;
+        // foreach($tot as $key){
+        //     $b[] = $key->sisa_pagu;
+        // }
 
-        $jml = array_sum($b);
-        $total->sisa_pagu = $jml;
-        $total->update();
+        // $jml = array_sum($b);
+        // $total->sisa_pagu = $jml;
+        // $total->update();
 
-        // dd($total);
+        // // dd($total);
 
 
-        $tot = Plan::where('parent_id', $data->parent_id)->get();
-        $a[] = 0;
-        foreach($tot as $key){
-            $a[] = $key->sisa_pagu;
-        }
+        // $tot = Plan::where('parent_id', $data->parent_id)->get();
+        // $a[] = 0;
+        // foreach($tot as $key){
+        //     $a[] = $key->sisa_pagu;
+        // }
 
-        $jum = array_sum($a);
-        $total->sisa_pagu = $jum;
-        $total->update();
+        // $jum = array_sum($a);
+        // $total->sisa_pagu = $jum;
+        // $total->update();
         // dd($jum);
 
         // $upper->sisa_pagu = $jum;
@@ -625,21 +624,10 @@ class PerencanaanController extends Controller
     {
         $a = Plan::where('parent_id', $id)->get();
         $total = Plan::where('id', $id)->first();
-        $tot= [];
-        $jan = [];
-        $feb = [];
-        $mar = [];
-        $apr = [];
-        $mei = [];
-        $jun = [];
-        $jul = [];
-        $agt = [];
-        $sep = [];
-        $okt = [];
-        $nov = [];
-        $des     = [];
+
+        $pag = [];
         foreach($a as $key){
-            $tot[] = $key->pagu_total;
+            
             $jan[] = $key->pagu_jan;
             $feb[] = $key->pagu_feb;
             $mar[] = $key->pagu_mar;
@@ -652,57 +640,51 @@ class PerencanaanController extends Controller
             $okt[] = $key->pagu_okt;
             $nov[] = $key->pagu_nov;
             $des[] = $key->pagu_des;
+            $pag[] = $key->pagu_total;
         }
 
-        $jum = array_sum($tot);
-        $total->pagu_total = $jum;
-        $total->update();
+        // dd($pag);
+        $tot = array_sum($pag);
+        // dd($tot);
+        $total->pagu_total = $tot;
+        // dd($total);
         
         $jan = array_sum($jan);
         $total->pagu_jan = $jan;
-        $total->update();
 
         $feb = array_sum($feb);
         $total->pagu_feb = $feb;
-        $total->update();
 
         $mar = array_sum($mar);
         $total->pagu_mar = $mar;
-        $total->update();
 
         $apr = array_sum($apr);
         $total->pagu_apr = $apr;
-        $total->update();
 
         $mei = array_sum($mei);
         $total->pagu_mei = $mei;
-        $total->update();
 
         $jun = array_sum($jun);
         $total->pagu_jun = $jun;
-        $total->update();
 
         $jul = array_sum($jul);
         $total->pagu_jul = $jul;
-        $total->update();
 
         $agt = array_sum($agt);
         $total->pagu_agt = $agt;
-        $total->update();
 
         $sep = array_sum($sep);
         $total->pagu_sep = $sep;
-        $total->update();
-        
+
         $okt = array_sum($okt);
         $total->pagu_okt = $okt;
-        $total->update();
         $nov = array_sum($nov);
         $total->pagu_nov = $nov;
-        $total->update();
         $des = array_sum($des);
         $total->pagu_des = $des;
+        
         $total->update();
+        // dd($total);
         
         return redirect()->route('perencanaan.index')->with(['success' => 'Berhasil menjumlah data']);
     }
@@ -716,8 +698,40 @@ class PerencanaanController extends Controller
 
         return redirect()->back();
         
-        
+    }
 
+    public function filterperencana(Request $request)
+    {
+        $submenu = Submenu::get();
+        $category = Category::get();
+        $subcat = Subcat::get();
+        $kegiatan = Kegiatan::get();
+        $sub_kegiatan = Sub_kegiatan::get();
+        $rincian = Rincian::get();
+        $month = Month::get();
+        $tanggal = Plan::where('parent_id', 0)->where('menu_id', 1)->get();
+        $last = Plan::latest()->first();
+        $cektgl = $request->tanggal_revisi;
+
+        if(empty($request->tanggal_revisi)){
+            @$data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();
+        } else {
+            @$data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $request->tanggal_revisi)->get();
+        }
+
+        return view('perencanaan.index',[
+            'data' => $data,
+            'submenu' => $submenu,
+            'category' => $category,
+            'subcat' => $subcat,
+            'kegiatan' => $kegiatan,
+            'sub_kegiatan' => $sub_kegiatan,
+            'rincian' => $rincian,
+            'month' => $month,
+            'tanggal' => $tanggal,
+            'last' => $last,
+            'cektgl' => $cektgl,
+        ]);
     }
 
 

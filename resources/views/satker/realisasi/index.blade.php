@@ -78,11 +78,16 @@
                         <tr style="background-color:yellow">
                             <td>{{@$key->program_satker->kode_program}}</td>
                             <td><a class="btn-key" data-id="{{$key->id}}" href="#" data-toggle="modal" data-target="#modal-default">{{@$key->program_satker->nama_program}}</a></td>
-                            <td>{{Carbon\Carbon::parse(@$key->tanggal_kuitansi)->format('d-m-Y')}}</td>
+                            <!--<td>{{Carbon\Carbon::parse(@$key->tanggal_kuitansi)->format('d-m-Y')}}</td>-->
+                            <td></td>
                             <td>{{number_format(@$key->jumlah, 0,",",".")}}</td>
                             <td>{{@$key->penerima}}</td>
                             <td>{{@$key->keterangan}}</td>
                             <td>
+                                <a class="btn btn-success btn-sm btn-total"  type="submit" href="{{route('totalrealsatker',['id' => $key->id])}}"><i class="fas fa-plus">
+                                            </i>
+                                            Total
+                                         </a>
                                 <a class="btn btn-danger btn-sm btn-hapus"  type="submit" href="{{route('hapusrealsatker',['id' => $key->id])}}">
                                     <i class="fas fa-trash">
                                     </i>
@@ -96,11 +101,16 @@
                             <td>
                                     <a class="btn-child" href="#" data-toggle="modal" data-target="#modal-sub_kegiatan" data-id="{{$child->id}}" data-name="">{{@$child->kegiatan_satker->nama_kegiatan}}</a>
                             </td>
-                            <td>{{Carbon\Carbon::parse(@$child->tanggal_kuitansi)->format('d-m-Y')}}</td>
+                            <!--<td>{{Carbon\Carbon::parse(@$child->tanggal_kuitansi)->format('d-m-Y')}}</td>-->
+                            <td></td>
                             <td>{{number_format(@$child->jumlah, 0,",",".")}}</td>
                             <td>{{@$child->penerima}}</td>
                             <td>{{@$child->keterangan}}</td>
                             <td>
+                                <a class="btn btn-success btn-sm btn-total"  type="submit" href="{{route('totalrealsatker',['id' => $child->id])}}"><i class="fas fa-plus">
+                                            </i>
+                                            Total
+                                         </a>
                                 <a class="btn btn-danger btn-sm btn-hapus"  type="submit" href="{{route('hapusrealsatker',['id' => $child->id])}}">
                                     <i class="fas fa-trash">
                                     </i>
@@ -114,11 +124,16 @@
                                 <td>
                                     <a class="btn-gchild" href="#" data-toggle="modal" data-target="#modal-menu" data-id="{{$gchild->id}}" data-name="">{{@$gchild->sub_kegiatan_satker->nama_subkegiatan}}</a>
                                 </td>
-                                <td>{{Carbon\Carbon::parse(@$gchild->tanggal_kuitansi)->format('d-m-Y')}}</td>
+                                <!--<td>{{Carbon\Carbon::parse(@$gchild->tanggal_kuitansi)->format('d-m-Y')}}</td>-->
+                                <td></td>
                                 <td>{{number_format(@$gchild->jumlah, 0,",",".")}}</td>
                                 <td>{{@$gchild->penerima}}</td>
                                 <td>{{@$gchild->keterangan}}</td>
                                 <td>
+                                    <a class="btn btn-success btn-sm btn-total"  type="submit" href="{{route('totalrealsatker',['id' => $gchild->id])}}"><i class="fas fa-plus">
+                                            </i>
+                                            Total
+                                         </a>
                                     <a class="btn btn-danger btn-sm btn-hapus"  type="submit" href="{{route('hapusrealsatker',['id' => $gchild->id])}}">
                                         <i class="fas fa-trash">
                                         </i>
@@ -133,11 +148,16 @@
                                     <td>
                                         <a class="btn-ggchild" href="#" data-toggle="modal" data-target="#modal-rincian" data-id="{{$ggchild->id}}">{{@$ggchild->menu_satker->nama_menu}}</a>
                                     </td>
-                                    <td>{{Carbon\Carbon::parse(@$ggchild->tanggal_kuitansi)->format('d-m-Y')}}</td>
+                                    <!--<td>{{Carbon\Carbon::parse(@$ggchild->tanggal_kuitansi)->format('d-m-Y')}}</td>-->
+                                    <td></td>
                                     <td>{{number_format(@$ggchild->jumlah, 0,",",".")}}</td>
                                     <td>{{@$ggchild->penerima}}</td>
                                     <td>{{@$ggchild->keterangan}}</td>
                                     <td>
+                                        <a class="btn btn-success btn-sm btn-total"  type="submit" href="{{route('totalrealsatker',['id' => $ggchild->id])}}"><i class="fas fa-plus">
+                                            </i>
+                                            Total
+                                         </a>
                                         <a class="btn btn-danger btn-sm btn-hapus"  type="submit" href="{{route('hapusrealsatker',['id' => $ggchild->id])}}">
                                             <i class="fas fa-trash">
                                             </i>
@@ -151,11 +171,16 @@
                                         <td>
                                             <a class="btn-zchild" href="#" data-toggle="modal" data-target="#modal-detil" data-id="{{$zchild->id}}" data-name="">{{$zchild->rincian_satker->nama_rincian}}</a>
                                         </td>
-                                        <td>{{Carbon\Carbon::parse(@$zchild->tanggal_kuitansi)->format('d-m-Y')}}</td>
+                                        <!--<td>{{Carbon\Carbon::parse(@$zchild->tanggal_kuitansi)->format('d-m-Y')}}</td>-->
+                                        <td></td>
                                         <td>{{number_format(@$zchild->jumlah, 0,",",".")}}</td>
                                         <td>{{@$zchild->penerima}}</td>
                                         <td>{{@$zchild->keterangan}}</td>
                                         <td>
+                                            <a class="btn btn-success btn-sm btn-total"  type="submit" href="{{route('totalrealsatker',['id' => $zchild->id])}}"><i class="fas fa-plus">
+                                            </i>
+                                            Total
+                                         </a>
                                             <a class="btn btn-danger btn-sm btn-hapus"  type="submit" href="{{route('hapusrealsatker',['id' => $zchild->id])}}">
                                                 <i class="fas fa-trash">
                                                 </i>
@@ -169,11 +194,16 @@
                                         <td>
                                             <a class="btn-zzchild" href="#" data-toggle="modal" data-target="#modal-uraian" data-id="{{$zzchild->id}}" data-name="">{{$zzchild->detil_satker->nama_detil}}</a>
                                         </td>
-                                        <td>{{Carbon\Carbon::parse(@$zzchild->tanggal_kuitansi)->format('d-m-Y')}}</td>
+                                        <!--<td>{{Carbon\Carbon::parse(@$zzchild->tanggal_kuitansi)->format('d-m-Y')}}</td>-->
+                                        <td></td>
                                         <td>{{number_format(@$zzchild->jumlah, 0,",",".")}}</td>
                                         <td>{{@$zzchild->penerima}}</td>
                                         <td>{{@$zzchild->keterangan}}</td>
                                         <td>
+                                             <a class="btn btn-success btn-sm btn-total"  type="submit" href="{{route('totalrealsatker',['id' => $zzchild->id])}}"><i class="fas fa-plus">
+                                            </i>
+                                            Total
+                                         </a>
                                             <a class="btn btn-danger btn-sm btn-hapus"  type="submit" href="{{route('hapusrealsatker',['id' => $zzchild->id])}}">
                                             <i class="fas fa-trash">
                                             </i>

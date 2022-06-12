@@ -14,9 +14,9 @@
                     <div class="col-sm-12">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>RO</label>
+                        <label>Komponen</label>
                         <select class="form-control select2" style="width: 100%;" name="subcat_id">
-                            <option value="">- Pilih RO -</option>
+                            <option value="">- Pilih Komponen -</option>
                             @foreach($subcat as $subcatid)
                                 <option value="{{$subcatid->id}}">{{$subcatid->kode_subcat}} - {{$subcatid->nama_subcat}}</option>
                             @endforeach

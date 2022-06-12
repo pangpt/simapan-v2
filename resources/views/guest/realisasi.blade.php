@@ -111,7 +111,7 @@
                         <tr style="background-color:yellow">
                             <td>{{@$key->menu->kode_menu}}</td>
                             <td>{{@$key->menu->nama_menu}}</td>
-                            <td>{{@$key->tanggal_kuitansi}}</td>
+                            <td></td>
                             <td>{{number_format(@$key->jumlah,0,",",".")}}</td>
                             <!-- <td>{{number_format(@$key->sisa_pagu,0,",",".")}}</td> -->
                             <td>{{@$key->penerima}}</td>
@@ -123,7 +123,7 @@
                             <td>{{@$child->submenu->kode_submenu}}</td>
                             <td>{{@$child->submenu->nama_submenu}}
                             </td>
-                            <td>{{@$child->tanggal_kuitansi}}</td>
+                            <td></td>
                             <td>{{number_format(@$child->jumlah,0,",",".")}}</td>
                             <!-- <td>{{number_format(@$child->sisa_pagu,0,",",".")}}</td> -->
                             <td>{{@$child->penerima}}</td>
@@ -134,7 +134,7 @@
                             <tr style="background-color: rgb(139, 221, 107)">
                                 <td>{{$gchild->category->kode_kategori}}</td>
                                 <td>{{$gchild->category->nama_kategori}}</td>
-                                <td>{{@$gchild->tanggal_kuitansi}}</td>
+                                <td></td>
                                 <td>{{number_format(@$gchild->jumlah,0,",",".")}}</td>
                                 <!-- <td>{{number_format(@$gchild->sisa_pagu,0,",",".")}}</td> -->
                                 <td>{{@$gchild->penerima}}</td>
@@ -145,7 +145,7 @@
                                 <tr style="background-color: rgb(255, 106, 106)">
                                     <td>{{$ggchild->subcat->kode_subcat}}</td>
                                     <td>{{$ggchild->subcat->nama_subcat}}</td>
-                                    <td>{{@$ggchild->tanggal_kuitansi}}</td>
+                                    <td></td>
                                     <td>{{number_format(@$ggchild->jumlah,0,",",".")}}</td>
                                     <!-- <td>{{number_format(@$ggchild->sisa_pagu,0,",",".")}}</td> -->
                                     <td>{{@$ggchild->penerima}}</td>
@@ -156,7 +156,7 @@
                                     <tr style="background-color: rgb(224, 224, 143)">
                                         <td>{{$zchild->kegiatan->kode_kegiatan}}</td>
                                         <td>{{$zchild->kegiatan->nama_kegiatan}}</td>
-                                        <td>{{@$zchild->tanggal_kuitansi}}</td>
+                                        <td></td>
                                         <td>{{number_format(@$zchild->jumlah,0,",",".")}}</td>
                                         <!-- <td>{{number_format(@$zchild->sisa_pagu,0,",",".")}}</td> -->
                                         <td>{{@$zchild->penerima}}</td>
@@ -167,7 +167,7 @@
                                     <tr>
                                         <td>{{$zzchild->sub_kegiatan->kode_sub_kegiatan}}</td>
                                         <td>{{$zzchild->sub_kegiatan->nama_sub_kegiatan}}</td>
-                                        <td>{{@$zzchild->tanggal_kuitansi}}</td>
+                                        <td></td>
                                         <td>{{number_format(@$zzchild->jumlah,0,",",".")}}</td>
                                         <!-- <td>{{number_format(@$zzchild->sisa_pagu,0,",",".")}}</td> -->
                                         <td>{{@$zzchild->penerima}}</td>

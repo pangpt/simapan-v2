@@ -72,9 +72,12 @@
                         <form action="{{route('filtersatker')}}" method="get">
                             <!-- @csrf -->
                             <div class="form-group filter">
-                                <div class="input-group date">
-                                    <input type="date" class="form-control" name="tanggal_revisi" id="filter-tanggal"/>
-                                </div>
+                                <select class="form-control select2" style="width:100%" name="tanggal_revisi">
+                                  <option value="">- Pilih Tanggal -</option>
+                                  @foreach($tanggal as $mo)
+                                        <option value="{{$mo->tanggal_revisi}}">{{$mo->tanggal_revisi}}</option>
+                                    @endforeach
+                              </select>
                             </div>
                     </div>
                     <div class="col-2">
@@ -86,7 +89,7 @@
                 <div class="col-3">
                       <form action="{{route('perencanaansatker.cetak')}}" method="get" target="_blank">
                         <input type="hidden" name="tanggal_revisi" value="{{Request::get('tanggal_revisi')}}">
-                        <button class="btn btn-outline-primary btn-lg">Cetak</button>
+                        <button class="btn btn-outline-primary btn-lg">Download</button>
                       </form>
                     </div>
               </div>
@@ -96,6 +99,11 @@
 
       <div class="card">
         <div class="card-body p-0">
+          @if($cektgl == null)
+                      Perencanaan tanggal : <strong>{{$last->tanggal_revisi}}</strong>
+                      @else
+                      Perencanaan tanggal : <strong>{{$cektgl}}</strong>
+                      @endif
           <table id="example2" class="table table-striped projects">
               <thead>
                   <tr>

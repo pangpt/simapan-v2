@@ -28,10 +28,10 @@ class RealisasiSatkerController extends Controller
         $detilsatker = DetilSatker::get();
         $uraiansatker = UraianSatker::get();
         $month = Month::get();
+        $now = Carbon::now()->isoFormat('MMMM');
 
-
-
-        $data = RealisasiSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->get();
+        
+        $data = RealisasiSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->where('bulan',$now)->orderBy('uraian','asc')->get();
         // dd($data);
         // dd($menusatu);
 
@@ -296,6 +296,25 @@ class RealisasiSatkerController extends Controller
         $data->delete();
 
         return redirect()->route('realisasisatker.index')->with(['success' => 'Berhasil menghapus data']);
+    }
+    
+    public function totalrealsatker ($id)
+    {
+        $a = RealisasiSatker::where('parent_id', $id)->get();
+        $total = RealisasiSatker::where('id', $id)->first();
+        $tot[] = 0;
+        foreach($a as $key){
+            $tot[] = $key->jumlah;
+        }
+
+
+        $jum = array_sum($tot);
+        $total->jumlah = $jum;
+        $total->update();
+        
+       
+        
+        return redirect()->route('realisasisatker.index')->with(['success' => 'Berhasil menjumlah data']);
     }
 
     public function filterrealisasi(Request $request) 

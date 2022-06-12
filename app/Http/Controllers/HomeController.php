@@ -66,7 +66,7 @@ class HomeController extends Controller
     {
         return view('guest.simapan');
     }
-    public function index()
+    public function index(Request $request)
     {
         $submenu = Submenu::get();
         $category = Category::get();
@@ -74,6 +74,10 @@ class HomeController extends Controller
         $kegiatan = Kegiatan::get();
         $sub_kegiatan = Sub_kegiatan::get();
         $rincian = Rincian::get();
+
+        $tanggal = Plan::where('parent_id', 0)->where('menu_id', 1)->get();
+
+        $cektgl = $request->tanggal_revisi;
 
         $last = Plan::latest()->first();
         @$data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
@@ -98,10 +102,13 @@ class HomeController extends Controller
             'sub_kegiatan' => $sub_kegiatan,
             'rincian' => $rincian,
             'month' => $month,
+            'tanggal' => $tanggal,
+            'cektgl' => $cektgl,
+            'last' => $last,
         ]);
     }
 
-    public function perencanaansatker()
+    public function perencanaansatker(Request $request)
     {
         $programsatker = ProgramSatker::get();
         $kegiatansatker = KegiatanSatker::get();
@@ -112,8 +119,13 @@ class HomeController extends Controller
         $uraiansatker = UraianSatker::get();
         $month = Month::get();
 
+        $tanggal = PerencanaanSatker::where('parent_id', 0)->where('program_satker_id', 1)->get();
+
+        $cektgl = $request->tanggal_revisi;
+
+
         $last = PerencanaanSatker::latest()->first();
-        @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
+        @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('program_satker_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
         // $data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->get();
         // dd($data->toArray());
 
@@ -129,6 +141,9 @@ class HomeController extends Controller
             'detilsatker' => $detilsatker,
             'uraiansatker' => $uraiansatker,
             'month' => $month,
+            'cektgl' => $cektgl,
+            'tanggal' => $tanggal,
+            'last' => $last,
         ]);
     }
 
@@ -179,7 +194,7 @@ class HomeController extends Controller
         $month = Month::get();
         $cekbul = $request->bulan;
 
-        $data = RealisasiSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->get();
+        $data = RealisasiSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('program_satker_id','asc')->get();
 
         return view('guest.realisasisatker', [
             'data' => $data,
@@ -198,18 +213,22 @@ class HomeController extends Controller
 
     public function filter(Request $request)
     {
-        $tgl = $request->tanggal_revisi;
+        // $tgl = $request->tanggal_revisi;
         $submenu = Submenu::get();
         $category = Category::get();
         $subcat = Subcat::get();
         $kegiatan = Kegiatan::get();
         $sub_kegiatan = Sub_kegiatan::get();
         $rincian = Rincian::get();
+        $last = Plan::latest()->first();
+        $cektgl = $request->tanggal_revisi;
+
+        $tanggal= Plan::where('parent_id', 0)->where('menu_id', 1)->get();
 
         $month = Month::get();
 
         if(empty($request->tanggal_revisi)){
-            $data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->get();
+            $data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();
         } else {
             $data = Plan::
             where('parent_id', 0)
@@ -235,6 +254,9 @@ class HomeController extends Controller
             'kegiatan' => $kegiatan,
             'sub_kegiatan' => $sub_kegiatan,
             'rincian' => $rincian,
+            'last' => $last,
+            'cektgl' => $cektgl,
+            'tanggal' => $tanggal,
         ]);
     }
 
@@ -296,12 +318,12 @@ class HomeController extends Controller
         $month = Month::get();
 
         if(empty($request->bulan)){
-            $data = RealisasiSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->get();
+            $data = RealisasiSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('program_satker_id','asc')->get();
         } else {
             $data = RealisasiSatker::
             where('parent_id', 0)
             ->with('children.children.children.children.children.children')
-            ->orderBy('menu_id','asc')
+            ->orderBy('program_satker_id','asc')
             ->where('bulan', $request->bulan)
             ->get();
         }
@@ -328,7 +350,7 @@ class HomeController extends Controller
 
     public function filtersatker(Request $request)
     {
-        $tgl = $request->tanggal_revisi;
+        // $tgl = $request->tanggal_revisi;
         $programsatker = ProgramSatker::get();
         $kegiatansatker = KegiatanSatker::get();
         $subkegiatansatker = SubKegiatanSatker::get();
@@ -337,18 +359,21 @@ class HomeController extends Controller
         $detilsatker = DetilSatker::get();
         $uraiansatker = UraianSatker::get();
         $month = Month::get();
+        $cektgl = $request->tanggal_revisi;
+
+        $tanggal= PerencanaanSatker::where('parent_id', 0)->where('program_satker_id', 1)->get();
 
         $last = PerencanaanSatker::latest()->first();
-        @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
+        @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('program_satker_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
         
         
         if(empty($request->tanggal_revisi)){
-            $data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->get();
+            $data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('program_satker_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();
         } else {
             $data = PerencanaanSatker::
             where('parent_id', 0)
             ->with('children.children.children.children.children.children')
-            ->orderBy('menu_id','asc')
+            ->orderBy('program_satker_id','asc')
             ->where('tanggal_revisi', $request->tanggal_revisi)
             ->get();
         }
@@ -363,17 +388,20 @@ class HomeController extends Controller
             'detilsatker' => $detilsatker,
             'uraiansatker' => $uraiansatker,
             'month' => $month,
+            'last' => $last,
+            'cektgl' => $cektgl,
+            'tanggal' => $tanggal,
         ]);
 
         $month = Month::get();
 
         if(empty($request->tanggal_revisi)){
-            $data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->get();
+            $data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('program_satker_id','asc')->get();
         } else {
-            $data = Plan::
+            $data = PerencanaanSatker::
             where('parent_id', 0)
             ->with('children.children.children.children.children.children')
-            ->orderBy('menu_id','asc')
+            ->orderBy('program_satker_id','asc')
             ->where('tanggal_revisi', $request->tanggal_revisi)
             ->get();
         }
@@ -438,10 +466,10 @@ class HomeController extends Controller
         $last = PerencanaanSatker::latest()->first();
 
         if(empty($request->tanggal_revisi)) {
-            @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
+            @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('program_satker_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
             $month = Month::get();
         }else {
-            @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $request->tanggal_revisi)->get();        // dd($data->toArray());
+            @$data = PerencanaanSatker::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('program_satker_id','asc')->where('tanggal_revisi', $request->tanggal_revisi)->get();        // dd($data->toArray());
             $month = Month::get();
         }
         // dd($data);

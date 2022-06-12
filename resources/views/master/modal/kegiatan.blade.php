@@ -14,9 +14,9 @@
                     <div class="col-sm-12">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>Komponen</label>
+                        <label>Sub Komponen</label>
                         <select class="form-control select2" style="width: 100%;" name="kegiatan_id">
-                            <option value="">- Pilih Komponen -</option>
+                            <option value="">- Pilih Sub Komponen -</option>
                             @foreach($kegiatan as $kegiatanid)
                                 <option value="{{$kegiatanid->id}}">{{$kegiatanid->kode_kegiatan}} - {{$kegiatanid->nama_kegiatan}}</option>
                             @endforeach

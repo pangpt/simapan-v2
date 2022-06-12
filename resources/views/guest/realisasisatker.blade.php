@@ -110,7 +110,7 @@
                       <tr style="background-color:yellow">
                           <td>{{@$key->program_satker->kode_program}}</td>
                           <td>{{@$key->program_satker->nama_program}}</td>
-                          <td>{{Carbon\Carbon::parse(@$key->tanggal_kuitansi)->format('d-m-Y')}}</td>
+                          <td></td>
                           <td>{{number_format(@$key->jumlah,0,",",".")}}</td>
                           <td>{{@$key->penerima}}</td>
                           <td>{{@$key->keterangan}}</td>
@@ -122,7 +122,7 @@
                           <td>
                                   {{@$child->kegiatan_satker->nama_kegiatan}}
                           </td>
-                          <td>{{Carbon\Carbon::parse(@$child->tanggal_kuitansi)->format('d-m-Y')}}</td>
+                          <td></td>
                           <td>{{number_format(@$child->jumlah,0,",",".")}}</td>
                           <td>{{@$child->penerima}}</td>
                           <td>{{@$child->keterangan}}</td>
@@ -134,7 +134,7 @@
                               <td>
                                  {{$gchild->sub_kegiatan_satker->nama_subkegiatan}}
                               </td>
-                              <td>{{Carbon\Carbon::parse(@$gchild->tanggal_kuitansi)->format('d-m-Y')}}</td>
+                              <td></td>
                               <td>{{number_format(@$gchild->jumlah,0,",",".")}}</td>
                               <td>{{@$gchild->penerima}}</td>
                               <td>{{@$gchild->keterangan}}</td>
@@ -147,7 +147,7 @@
                                   <td>
                                      {{$ggchild->menu_satker->nama_menu}}
                                   </td>
-                                  <td>{{Carbon\Carbon::parse(@$ggchild->tanggal_kuitansi)->format('d-m-Y')}}</td>
+                                  <td></td>
                                   <td>{{number_format(@$ggchild->jumlah,0,",",".")}}</td>
                                   <td>{{@$ggchild->penerima}}</td>
                                   <td>{{@$ggchild->keterangan}}</td>
@@ -159,7 +159,7 @@
                                       <td>
                                          {{$zchild->rincian_satker->nama_rincian}}
                                       </td>
-                                      <td>{{Carbon\Carbon::parse(@$zchild->tanggal_kuitansi)->format('d-m-Y')}}</td>
+                                      <td></td>
                                       <td>{{number_format(@$zchild->jumlah,0,",",".")}}</td>
                                       <td>{{@$zchild->penerima}}</td>
                                       <td>{{@$zchild->keterangan}}</td>
@@ -171,7 +171,7 @@
                                       <td>
                                         {{@$zzchild->detil_satker->nama_detil}}
                                       </td>
-                                      <td>{{Carbon\Carbon::parse(@$zzchild->tanggal_kuitansi)->format('d-m-Y')}}</td>
+                                      <td></td>
                                       <td>{{number_format(@$zzchild->jumlah,0,",",".")}}</td>
                                       <td>{{@$zzchild->penerima}}</td>
                                       <td>{{@$zzchild->keterangan}}</td>

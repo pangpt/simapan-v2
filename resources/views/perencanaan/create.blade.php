@@ -36,7 +36,7 @@
                   <div class="row">
                       <div class="col-6">
                         <div class="form-group">
-                            <label>Jenis Kegiatan</label>
+                            <label>Jenis Revisi</label>
                             <select class="form-control select2" style="width:100%" name="jenis_revisi">
                                   <option value="">- Pilih Jenis Revisi -</option>
                                   <option value="RPD Triwulan">RPD Triwulan</option>
@@ -56,9 +56,9 @@
                       </div>
                       <div class="col-12">
                         <div class="form-group">
-                          <label>Menu</label>
+                          <label>Kegiatan</label>
                           <select class="form-control select2" style="width:100%" name="menu_id">
-                                  <option value="">- Pilih Menu -</option>
+                                  <option value="">- Pilih Kegiatan -</option>
                                     @foreach($menu as $menuid)
                                         <option value="{{$menuid->id}}">{{$menuid->kode_menu}} - {{$menuid->nama_menu}}</option>
                                     @endforeach

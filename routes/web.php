@@ -81,17 +81,17 @@ Route::prefix('master_satker')->group(function () {
     Route::get('/program/create', 'MasterSatkerController@createprogram')->name('program.create');
     Route::post('/program/input', 'MasterSatkerController@inputprogram')->name('program.input');
 
-    Route::get('/kegiatan', 'MasterSatkerController@kegiatan')->name('kegiatan.index');
-    Route::get('/kegiatan/create', 'MasterSatkerController@createkegiatan')->name('kegiatan.create');
-    Route::post('/kegiatan/input', 'MasterSatkerController@inputkegiatan')->name('kegiatan.input');
+    Route::get('/kegiatan', 'MasterSatkerController@kegiatan')->name('kegiatansatker.index');
+    Route::get('/kegiatan/create', 'MasterSatkerController@createkegiatan')->name('kegiatansatker.create');
+    Route::post('/kegiatan/input', 'MasterSatkerController@inputkegiatan')->name('kegiatansatker.input');
 
-    Route::get('/subkegiatan', 'MasterSatkerController@subkegiatan')->name('subkegiatan.index');
+    Route::get('/subkegiatan', 'MasterSatkerController@subkegiatan')->name('subkegiatansatker.index');
     Route::get('/subkegiatan/create', 'MasterSatkerController@createsubkegiatan')->name('subkegiatansatker.create');
-    Route::post('/subkegiatan/input', 'MasterSatkerController@inputsubkegiatan')->name('subkegiatan.input');
+    Route::post('/subkegiatan/input', 'MasterSatkerController@inputsubkegiatan')->name('subkegiatansatker.input');
 
     Route::get('/menu', 'MasterSatkerController@menu')->name('menu.index');
-    Route::get('/menu/create', 'MasterSatkerController@createmenu')->name('menu.create');
-    Route::post('/menu/input', 'MasterSatkerController@inputmenu')->name('menu.input');
+    Route::get('/menu/create', 'MasterSatkerController@createmenu')->name('menusatker.create');
+    Route::post('/menu/input', 'MasterSatkerController@inputmenu')->name('menusatker.input');
 
     Route::get('/rincian', 'MasterSatkerController@rincian')->name('rinciansatker.index');
     Route::get('/rincian/create', 'MasterSatkerController@createrincian')->name('rinciansatker.create');
@@ -112,6 +112,8 @@ Route::prefix('satker')->group(function () {
     Route::get('/perencanaan', 'PerencanaanSatkerController@perencanaansatker')->name('perencanaansatker.index');
     Route::post('/perencanaan/input', 'PerencanaanSatkerController@inputperencanaansatker')->name('perencanaansatker.input');
     Route::get('/perencanaan/create', 'PerencanaanSatkerController@createperencanaansatker')->name('perencanaansatker.create');
+
+    Route::get('/perencanaan/filterperencanasatker','PerencanaanSatkerController@filterperencanasatker')->name('filterperencanasatker');
 
     Route::get('/realisasi', 'RealisasiSatkerController@realisasisatker')->name('realisasisatker.index');
     Route::post('/realisasi/input', 'RealisasiSatkerController@inputrealisasisatker')->name('realisasisatker.input');
@@ -191,7 +193,13 @@ Route::get('/realisasi/filterreal','RealisasiSatkerController@filterrealisasi')-
 
 Route::post('/editrealsatker/{id}', 'RealisasiSatkerController@editrealsatker')->name('edit.realsatker');
 
+Route::get('/totalrealsatker/{id}', 'RealisasiSatkerController@totalrealsatker')->name('totalrealsatker');
+
 // Route::get('/filter','HomeController@filter')->name('filter');
+Route::get('/perencanaan/filterperencana','PerencanaanController@filterperencana')->name('filterperencana');
+
+
+
 
 Route::get('/logout', 'LoginController@logout')->name('logout');
 //add

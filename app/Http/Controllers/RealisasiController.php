@@ -88,9 +88,9 @@ class RealisasiController extends Controller
         $last = Plan::latest()->first();
         // dd($last->tanggal_revisi);
         $perencanaan = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('uraian','asc')->where('menu_id', 1)->where('tanggal_revisi', $last->tanggal_revisi)->first();
-
+        // dd($perencanaan);
         $data = new Realisasi;
-        $data->plan_id = $perencanaan->id;
+        // $data->plan_id = $perencanaan->id;
         $data->satker = $request->satker;
         $data->tanggal_kuitansi = $request->tanggal_kuitansi;
         $data->bulan = Carbon::createFromFormat('Y-m-d', $request->tanggal_kuitansi)->isoFormat('MMMM');
@@ -125,7 +125,7 @@ class RealisasiController extends Controller
         $submenu = Realisasi::where('id', $id)->first();
 
         $data = new Realisasi;
-        $data->plan_id = $perencanaan->id;
+        // $data->plan_id = $perencanaan->id;
         $data->submenu_id = $request->submenu_id;
         // $data->kode = $splitKey[0];
         // $data->uraian = $splitKey[1];
@@ -154,7 +154,7 @@ class RealisasiController extends Controller
 
 
         $data = new Realisasi;
-        $data->plan_id = $perencanaan->id;
+        // $data->plan_id = $perencanaan->id;
         $data->category_id = $request->category_id;
         // $data->kode = $splitCat[0];
         // $data->uraian = $splitCat[1];
@@ -179,7 +179,7 @@ class RealisasiController extends Controller
         $subcat = Realisasi::where('id', $id)->first();
 
         $data = new Realisasi;
-        $data->plan_id = $perencanaan->id;
+        // $data->plan_id = $perencanaan->id;
         $data->subcat_id = $request->subcat_id;
         // $data->kode = $splitCat[0];
         // $data->uraian = $splitCat[1];
@@ -203,7 +203,7 @@ class RealisasiController extends Controller
         $keg = Realisasi::where('id', $id)->first();
 
         $data = new Realisasi;
-        $data->plan_id = $perencanaan->id;
+        // $data->plan_id = $perencanaan->id;
         $data->kegiatan_id = $request->kegiatan_id;
         // $data->kode = $splitCat[0];
         // $data->uraian = $splitCat[1];
@@ -227,7 +227,7 @@ class RealisasiController extends Controller
         $subkeg = Realisasi::where('id', $id)->first();
 
         $data = new Realisasi;
-        $data->plan_id = $perencanaan->id;
+        // $data->plan_id = $perencanaan->id;
         $data->sub_kegiatan_id = $request->sub_kegiatan_id;
         // $data->kode = $splitCat[0];
         // $data->uraian = $splitCat[1];
@@ -253,7 +253,7 @@ class RealisasiController extends Controller
         // dd($rinc);
 
         $data = new Realisasi;
-        $data->plan_id = $perencanaan->id;
+        // $data->plan_id = $perencanaan->id;
         $data->rincian_id = $request->rincian_id;
         $data->kode = '-';
         // $data->uraian =$request->rincian_id;

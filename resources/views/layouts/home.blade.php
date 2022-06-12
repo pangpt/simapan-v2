@@ -37,7 +37,9 @@
         @include('includes.guest.nav')
         <div id="page-container" class="main-content-boxed">
             <!-- Main Container -->
-            <main id="main-container">
+            <main id="main-container" style="background-image: url('/public/dist/img/simapan-back.png');background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;height: 100%;>
                 @yield('content')
             </main>
             <!-- END Main Container -->

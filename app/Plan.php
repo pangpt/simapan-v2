@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Plan extends Model
 {
     //
-    protected $fillable = ['kode', 'uraian', 'parent_id'];
+    protected $table ='plans';
 
     public function parent()
     {
