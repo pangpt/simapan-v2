@@ -43,9 +43,47 @@ class HomeController extends Controller
     {
         return view('guest.simulasi');
     }
-    public function sisapagu()
+    public function sisapagu(Request $request)
     {
-        return view('guest.sisapagu');
+        $submenu = Submenu::get();
+        $category = Category::get();
+        $subcat = Subcat::get();
+        $kegiatan = Kegiatan::get();
+        $sub_kegiatan = Sub_kegiatan::get();
+        $rincian = Rincian::get();
+
+        $tanggal = Plan::where('parent_id', 0)->where('menu_id', 1)->get();
+
+        $cektgl = $request->tanggal_revisi;
+
+        $last = Plan::latest()->first();
+        @$data = Plan::where('parent_id', 0)->with('children.children.children.children.children.children')->orderBy('menu_id','asc')->where('tanggal_revisi', $last->tanggal_revisi)->get();        // dd($data->toArray());
+        $month = Month::get();
+
+        // dd($month);
+
+        return view('guest.sisapagu')->with([
+            'data' => $data,
+            'submenu' => $submenu,
+            'category' => $category,
+            'subcat' => $subcat,
+            'kegiatan' => $kegiatan,
+            'sub_kegiatan' => $sub_kegiatan,
+            'rincian' => $rincian,
+            'month' => $month,
+            'data' => $data,
+            'submenu' => $submenu,
+            'category' => $category,
+            'subcat' => $subcat,
+            'kegiatan' => $kegiatan,
+            'sub_kegiatan' => $sub_kegiatan,
+            'rincian' => $rincian,
+            'month' => $month,
+            'tanggal' => $tanggal,
+            'cektgl' => $cektgl,
+            'last' => $last,
+        ]);
+        // return view('guest.sisapagu');
     }
 
     public function deviasisatker()
