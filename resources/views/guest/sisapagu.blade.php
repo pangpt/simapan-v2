@@ -58,7 +58,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-12 text-center">
-              <h1><strong>Perencanaan (307509)</strong></h1>
+              <h1><strong>Sisa Pagu (307509)</strong></h1>
             </div>
           </div>
         </div><!-- /.container-fluid -->
@@ -92,16 +92,16 @@
                       </form>
                     </div>
               </div>
-                   
+
           </div>
       </div>
 
       <div class="card">
         <div class="card-body p-0">
            @if($cektgl == null)
-                      Perencanaan tanggal : <strong>{{$last->tanggal_revisi}}</strong>
+                      Sisa pagu tanggal : <strong>{{$last->tanggal_revisi}}</strong>
                       @else
-                      Perencanaan tanggal : <strong>{{$cektgl}}</strong>
+                      Sisa pagu tanggal : <strong>{{$cektgl}}</strong>
                       @endif
           <table id="example2" class="table table-striped projects">
               <thead>
@@ -109,7 +109,7 @@
                     <th>Kode</th>
                     <th>Uraian</th>
                     <th>Pagu Total</th>
-                    <!-- <th>Sisa Pagu</th> -->
+                    <th>Sisa Pagu</th>
                     @foreach($month as $mo)
                     <th>{{$mo->name}}</th>
                     @endforeach
@@ -121,7 +121,7 @@
                             <td>{{@$key->menu->kode_menu}}</td>
                             <td>{{@$key->menu->nama_menu}}</td>
                             <td>{{number_format(@$key->pagu_total,0,",",".")}}</td>
-                            <!-- <td>{{number_format(@$key->sisa_pagu,0,",",".")}}</td> -->
+                            <td>{{number_format(@$key->sisa_pagu,0,",",".")}}</td>
                             <td>{{number_format(@$key->pagu_jan,0,",",".")}}</td>
                                             <td>{{number_format($key->pagu_feb,0,",",".")}}</td>
                                             <td>{{number_format($key->pagu_mar,0,",",".")}}</td>
@@ -143,7 +143,7 @@
                                   {{@$child->submenu->nama_submenu}}
                             </td>
                             <td>{{number_format(@$child->pagu_total,0,",",".")}}</td>
-                            <!-- <td>{{number_format(@$child->sisa_pagu,0,",",".")}}</td> -->
+                            <td>{{number_format(@$child->sisa_pagu,0,",",".")}}</td>
                             <td>{{number_format(@$child->pagu_jan,0,",",".")}}</td>
                                             <td>{{number_format($child->pagu_feb,0,",",".")}}</td>
                                             <td>{{number_format($child->pagu_mar,0,",",".")}}</td>
@@ -165,7 +165,7 @@
                                     {{$gchild->category->nama_kategori}}
                                 </td>
                                 <td>{{number_format(@$gchild->pagu_total,0,",",".")}}</td>
-                                <!-- <td>{{number_format(@$gchild->sisa_pagu,0,",",".")}}</td> -->
+                                <td>{{number_format(@$gchild->sisa_pagu,0,",",".")}}</td>
                                 <td>{{number_format(@$gchild->pagu_jan,0,",",".")}}</td>
                                             <td>{{number_format($gchild->pagu_feb,0,",",".")}}</td>
                                             <td>{{number_format($gchild->pagu_mar,0,",",".")}}</td>
@@ -188,7 +188,7 @@
                                         {{$ggchild->subcat->nama_subcat}}
                                     </td>
                                     <td>{{number_format(@$ggchild->pagu_total,0,",",".")}}</td>
-                                    <!-- <td>{{number_format(@$ggchild->sisa_pagu,0,",",".")}}</td> -->
+                                    <td>{{number_format(@$ggchild->sisa_pagu,0,",",".")}}
                                     <td>{{number_format(@$ggchild->pagu_jan,0,",",".")}}</td>
                                             <td>{{number_format($ggchild->pagu_feb,0,",",".")}}</td>
                                             <td>{{number_format($ggchild->pagu_mar,0,",",".")}}</td>
@@ -210,7 +210,7 @@
                                            {{$zchild->kegiatan->nama_kegiatan}}
                                         </td>
                                         <td>{{number_format(@$zchild->pagu_total,0,",",".")}}</td>
-                                        <!-- <td>{{number_format(@$zchild->sisa_pagu,0,",",".")}}</td> -->
+                                        <td>{{number_format(@$zchild->sisa_pagu,0,",",".")}}</td>
                                         <td>{{number_format(@$zchild->pagu_jan,0,",",".")}}</td>
                                             <td>{{number_format($zchild->pagu_feb,0,",",".")}}</td>
                                             <td>{{number_format($zchild->pagu_mar,0,",",".")}}</td>
@@ -232,7 +232,7 @@
                                             {{$zzchild->sub_kegiatan->nama_sub_kegiatan}}
                                         </td>
                                         <td>{{number_format(@$zzchild->pagu_total,0,",",".")}}</td>
-                                        <!-- <td>{{number_format(@$zzchild->sisa_pagu,0,",",".")}}</td> -->
+                                        <td>{{number_format(@$zzchild->sisa_pagu,0,",",".")}}</td>
                                         <td>{{number_format(@$zzchild->pagu_jan,0,",",".")}}</td>
                                             <td>{{number_format($zzchild->pagu_feb,0,",",".")}}</td>
                                             <td>{{number_format($zzchild->pagu_mar,0,",",".")}}</td>
@@ -253,7 +253,7 @@
                                             <td>{{$achild->rincian->nama_rincian}}
                                             </td>
                                             <td>{{number_format($achild->pagu_total, 0,",",".")}}</td>
-                                            <!-- <td>{{number_format($achild->sisa_pagu, 0,",",".")}}</td> -->
+                                            <td>{{number_format($achild->sisa_pagu, 0,",",".")}}</td>
                                             <td>{{number_format(@$achild->pagu_jan,0,",",".")}}</td>
                                             <td>{{number_format($achild->pagu_feb,0,",",".")}}</td>
                                             <td>{{number_format($achild->pagu_mar,0,",",".")}}</td>
